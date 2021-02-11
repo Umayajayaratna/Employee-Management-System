@@ -1,0 +1,118 @@
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-2"></div>
+    <div class="col-8">
+      <form #EmployeeUpdateForm="ngForm" (ngSubmit)="onSubmit(EmployeeUpdateForm)">
+
+        <!--<form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="SearchEmployeeById" aria-label="Search" #id [(ngModel)]="employee.id">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="searchById(employee.id)" >Search</button>
+              </form>
+              <br><br>-->
+        <div class="form-group">
+          <label for="id">Id : </label> <label> {{employee.id}}</label>
+          <!--<input type="text" class="form-control" id="id" name="id" [(ngModel)]="employee.id"  placeholder="EmployeeId" >
+              -->
+        </div>
+        <div class="form-group">
+          <label for="code">Code</label>
+          <input type="text" class="form-control" id="code" name="code" [(ngModel)]="employee.code"
+            placeholder="EmployeeCode" #code="ngModel" required >
+        </div>
+        
+        <div *ngIf="code.invalid && (code.dirty || code.touched)"
+        class="alert alert-danger">
+    
+      <div *ngIf="code.errors.required">
+        Code is required.
+      </div></div>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" name="name" [(ngModel)]="employee.name"
+            placeholder="EmployeeName" #name="ngModel" required>
+        </div>
+        <div *ngIf="name.invalid && (name.dirty || name.touched)"
+        class="alert alert-danger">
+    
+      <div *ngIf="name.errors.required">
+        Name is required.
+      </div></div>
+        <div class="form-group">
+          <label for="employeeType">EmployeeType</label>
+          <select class="form-control" name="employeeType" [(ngModel)]="employee.employeeType" #employeeType="ngModel"  required>
+          
+            <option  *ngFor="let empType of employeeTypes" id="employeeType"  value={{empType.description}}  >{{empType.description}}</option>
+          </select>
+        </div>
+        <div *ngIf="employeeType.invalid && (employeeType.dirty || employeeType.touched)"
+        class="alert alert-danger">
+    
+      <div *ngIf="employeeType.errors.required">
+        EmployeeType is required.
+      </div></div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" name="email" [(ngModel)]="employee.email"
+            placeholder="EmployeEmail" #email="ngModel"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+        </div>
+        <div *ngIf="email.touched">
+          <div *ngIf="email.errors?.required" class="alert alert-danger">Email is required</div>
+          <div *ngIf="email.errors?.pattern" class="alert alert-danger">This is not a valid Email</div>
+        </div>
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="date" class="form-control" id="dob" name="dob" [ngModel]="employee.dob | date:'yyyy-MM-dd' "
+            (ngModelChange)="employee.dob = $event" placeholder="EmployeeDOB" #dob="ngModel" required>
+        </div>
+          <div *ngIf="dob.invalid && (dob.dirty || dob.touched)"
+        class="alert alert-danger">
+    
+      <div *ngIf="dob.errors.required">
+        DOB is required.
+      </div></div>
+        <div class="form-group">
+          <label>Gender</label>
+          <div class="form-control">
+            <label class="radio-inline">
+              <input type="radio" id="gender" name="gender" value="male" [(ngModel)]="employee.gender" #gender="ngModel" required>
+              Male
+            </label>
+            <label class="radio-inline">
+              <input type="radio" id="gender" name="gender" value="female" [(ngModel)]="employee.gender" #gender="ngModel" required>
+              Female
+            </label>
+          </div>
+        </div>
+        <div *ngIf="gender.invalid && (gender.dirty || gender.touched)"
+        class="alert alert-danger">
+    
+      <div *ngIf="gender.errors.required">
+        Gender is required.
+      </div></div>
+        <div class="form-group">
+          <label>Active</label>
+          <div class="form-control">
+            <label class="checkbox-inline">
+              <input type="checkbox" name="active" value="true" id="active" [(ngModel)]="employee.active">
+
+            </label>
+
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="EmployeeUpdateForm.form.invalid">Update
+          Employee</button>
+      </form>
+
+
+    </div>
+    <div class="col-2">
+      <div>
+        <div class="alert alert-info" role="alert" *ngIf="response">
+          {{response}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

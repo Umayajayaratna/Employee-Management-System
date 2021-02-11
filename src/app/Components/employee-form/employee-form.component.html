@@ -1,0 +1,102 @@
+<div class="container">
+    
+  <div class="row">
+    
+    <div class="col-2"></div><div class="col-8">
+      <form #EmployeeForm="ngForm" (ngSubmit)="onSubmit(EmployeeForm)">
+        <div class="form-group">
+          <label for="code">Code</label>
+          <input type="text" class="form-control" id="code" name="code" ngModel placeholder="EmployeeCode"
+            required #code="ngModel">
+        </div>
+
+        <div *ngIf="name.invalid && (name.dirty || name.touched)"
+        class="alert alert-danger">
+    
+      <div *ngIf="name.errors.required">
+        Code is required.
+      </div></div>
+        
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" name="name" ngModel placeholder="EmployeeName"
+            required  #name="ngModel">
+        </div>
+        <div *ngIf="name.invalid && (name.dirty || name.touched)"
+        class="alert alert-danger">
+    
+      <div *ngIf="name.errors.required">
+        Name is required.
+      </div></div>
+        <div class="form-group">
+          <label for="employeeType">EmployeeType</label>
+          <select class="form-control" name="employeeType"  #employeeType="ngModel" ngModel  required>
+            <option  *ngFor="let empType of employeeTypes" id="employeeType"  value={{empType.description}} >{{empType.description}}</option>
+          </select>
+        </div>
+        <div *ngIf="employeeType.invalid && (employeeType.dirty || employeeType.touched)"
+        class="alert alert-danger">
+    
+      <div *ngIf="employeeType.errors.required">
+        EmployeeType is required.
+      </div></div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" name="email" ngModel
+            placeholder="EmployeEmail"  #email="ngModel" 
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+        </div>
+        <div *ngIf="email.touched">
+          <div *ngIf="email.errors?.required" class="alert alert-danger">Email is required</div>
+          <div *ngIf="email.errors?.pattern" class="alert alert-danger">This is not a valid Email</div>
+        </div>
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="date" class="form-control" id="dob" name="dob" ngModel placeholder="EmployeeDOB"
+           #dob="ngModel" required>
+        </div>
+        <div *ngIf="dob.invalid && (dob.dirty || dob.touched)"
+        class="alert alert-danger">
+    
+      <div *ngIf="dob.errors.required">
+        DOB is required.
+      </div></div>
+        <div class="form-group">
+          <label>Gender</label>
+          <div class="form-control"  >
+            <label class="radio-inline">
+              <input type="radio" name="gender" value="male" #gender="ngModel" ngModel required>
+              Male
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="gender" value="female" #gender="ngModel" ngModel required>
+              Female
+            </label>
+          </div>
+        </div>
+        <div *ngIf="gender.invalid && (gender.dirty || gender.touched)"
+        class="alert alert-danger">
+    
+      <div *ngIf="gender.errors.required">
+        Gender is required.
+      </div></div>
+        <div class="form-group">
+          <label>Active</label>
+          <div class="form-control">
+            <label class="checkbox-inline">
+              <input type="checkbox" id="active" name="active" value="true"  ng-checked="active" (change)="check($event)" ngModel="active">
+            
+            </label>
+           
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="EmployeeForm.form.invalid">Add New Employee</button>
+      </form>
+      
+    </div><div class="col-2">
+      <div *ngIf="response">
+        <div class="alert alert-info" role="alert">
+          {{response}}
+        </div>
+      </div>
+    </div></div></div>
